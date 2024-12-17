@@ -1,7 +1,15 @@
 #include <iostream>
 #include <cmath>
-#include <thread>
+#include <random>
 using namespace std;
+
+double randint(double min, double max)
+{
+	random_device rd;
+	mt19937 gen(rd());
+	uniform_int_distribution<> distrib(min, max);
+	return distrib(gen);
+}
 
 class REACTOR
 {
@@ -18,9 +26,19 @@ private:
 	private:
 		const double PLASMA_TEMP = 645;
 		const double PLASMA_TEMP_RANGE = 14;
-
+		const double PLASMA_DENSITY = 3;//   3 grams/m3
+		const double PLASMA_DENSTIY_RANGE = 0.1;
+		double plasmaTemp = PLASMA_TEMP;
+		double plasmaDensity = PLASMA_DENSITY;
 	public:
-		//
+		void setPlasmaTemp()
+		{
+			plasmaTemp = randint(PLASMA_TEMP - PLASMA_TEMP_RANGE, PLASMA_TEMP + PLASMA_TEMP_RANGE);
+		}
+		void setPlasmaDensity()
+		{
+			plasmaDensity = randint(PLASMA_DENSITY - PLASMA_DENSTIY_RANGE * 10, PLASMA_DENSITY + PLASMA_DENSTIY_RANGE * 10) / 10;
+		}
 	};
 public:
 	void setAmbient(double num)
@@ -30,8 +48,7 @@ public:
 
 };
 
-
 int main()
 {
-	
+	REACTOR PCR_0;
 }
